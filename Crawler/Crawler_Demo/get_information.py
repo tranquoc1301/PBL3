@@ -2,8 +2,8 @@ from venv import logger
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 from time import sleep
-# from get_data import get_edu, get_company_description, get_company_staff_size,get_probation, get_enrollment_location, get_deadline_enrollment, get_company_location, get_company_name, get_role,get_gender,get_salary,get_benefit,get_description, get_requirement, get_experience_requirement, get_age_requirement, get_SrcPic, get_posted_date, get_work_way, get_job_industry, get_job_title, get_NumEmployee
 from get_data import *
+from DB import *
 
 def get_profile_urls_24(driver, url):
     page_source = BeautifulSoup(driver.page_source, 'html.parser')
@@ -39,7 +39,7 @@ def get_profile_info_24(driver, url):
         company_description = get_company_description(page_source)
         description = get_description(page_source)
         requirement = get_requirement(page_source)
-        industry = get_job_industry(page_source)
+        job_industry = get_job_industry(page_source)
         staff_size = get_company_staff_size(page_source)
         posted_date = get_posted_date(page_source)
         enrollment_location = get_enrollment_location(page_source)
@@ -48,7 +48,7 @@ def get_profile_info_24(driver, url):
         probation = get_probation(page_source)
         work_way = get_work_way(page_source)
         benefit = get_benefit(page_source)
-        return [company_names, job_titles, company_locations, posted_date, enrollment_location, role, salary, gender, num_of_employee, age, probation, work_way, exp_year, edu, benefit, description, requirement, deadline, src_pic, staff_size, company_description]
+        return [company_names, job_titles, job_industry, company_locations, posted_date, enrollment_location, role, salary, gender, num_of_employee, age, probation, work_way, exp_year, edu, benefit, description, requirement, deadline, src_pic, staff_size, company_description]
     except Exception as e:
         logger.error(f"Error occurred while scraping data from {url}: {e}")
         return []
@@ -62,25 +62,22 @@ def get_profile_info_24(driver, url):
 #     return False
 
 
-def get_job_data(driver, num_pages):
+def get_job_data(driver, num_pages, link):
     try:
         page_start = 1
         data = []
+        last_ampersand_index = link.rindex('&')
+        sec_equal_index = link.rindex('page=')
         while page_start <= num_pages:
-            url = f'https://vieclam24h.vn/tim-kiem-viec-lam-nhanh?page={page_start}&sort_q='
-            print('>>>URL', url)
+            url = f'{link[:sec_equal_index + 5]}{page_start}{link[last_ampersand_index:]}'
             driver.get(url)
             sleep(2)
             profile_urls = get_profile_urls_24(driver, url)
+
             for i in profile_urls:
                 info = get_profile_info_24(driver, i)
-                if info:
-                    print('Job:', info)
-                    data.append(info)
-                else:
-                    print('>> No information found for this profile URL:', i)
+                data.append(info)
             page_start += 1
-
         return data
     except Exception as e:
         print(f"Error occurred while get data 24h: {e}")

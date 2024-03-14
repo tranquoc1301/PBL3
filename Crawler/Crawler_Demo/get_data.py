@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-
+from bs4 import BeautifulSoup
 
 def get_company_name(source):
     return source.find('h3', class_='font-normal text-16 text-se-neutral-64 mb-4').get_text(' ', strip=True)
@@ -148,6 +148,5 @@ def get_age_requirement(source):
 
 
 def get_benefit(source):
-    div = source.find_all('div',
-                          class_='jsx-d84db6a84feb175e mb-2 text-14 break-words text-se-neutral-80 text-description')
+    div = source.find_all('div', class_='jsx-d84db6a84feb175e mb-2 text-14 break-words text-se-neutral-80 text-description')
     return div[2].get_text(' ', strip=True)

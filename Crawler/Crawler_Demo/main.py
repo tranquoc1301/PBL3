@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.options import Options
 from get_information import get_job_data
 from DB import *
 import get_information
+from get_industry import crawl_industry
+
 def removeIfDuplicate(data):
     tmp = []
     for i in data:
@@ -13,26 +15,37 @@ def removeIfDuplicate(data):
         else:
             continue
     return tmp
+
+
 def crawl_data():
+    crawl_by_industry_links = []
+    occupation_id = 1
+    for occupation_id in range(1, 21):
+        crawl_by_industry_links.append(f'https://vieclam24h.vn/tim-kiem-viec-lam-nhanh?occupation_ids%5B%5D={occupation_id}&page=1&sort_q=')
+    
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     try:
-        with webdriver.Chrome(options=chrome_options) as driver:
-            data = get_job_data(driver, 2)
-            data= list(filter(None, data))  # filter none element
-            company_data = []
+        for link in crawl_by_industry_links:
+            with webdriver.Chrome(options=chrome_options) as driver:
+                data = get_job_data(driver, 2, link)
+                data = list(filter(None, data))  # filter none element
+                company_data = []
+                for d in data:
+                    temp = []
+                    temp.append(d[0])  # COMPANY_NAME
+                    temp.append(d[3])  # COMPANY_LOCATIONS
+                    temp.append(d[20])  # CONPANY_STAFF_SIZE
+                    temp.append(d[21])  # COMPANY_DESCRIPTION
+                    company_data.append(temp)
+                
 
-            for d in data:
-                tmp = []
-                tmp.append(d[0]) #COMPANY_NAME
-                tmp.append(d[2]) #COMPANY_LOCATIONS
-                tmp.append(d[19]) #CONPANY_STAFF_SIZE
-                tmp.append(d[20]) #COMPANY_DESCRIPTION
-                company_data.append(tmp)
+                company_data = removeIfDuplicate(company_data)                
+                save_company_into_DB(company_data)
+                save_job_into_DB(data)
 
-            company_data = removeIfDuplicate(company_data)
-            save_company_into_DB(company_data)
-            save_job_into_DB(data)
+        industries = crawl_industry()
+        save_industry_into_DB(industries)
 
     except Exception as e:
         logger.error(f"Error occurred while scraping data: {e}")
