@@ -48,30 +48,40 @@ app.post('/register', [
     });
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', [
+    check('email').isEmail().normalizeEmail(),
+    check('password').isLength({ min: 8 })
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
     const { email, password } = req.body;
 
-    const Query = 'SELECT * FROM user WHERE email = ?';
-    db.query(Query, [email], (err, results) => {
+    // Kiểm tra xem người dùng có tồn tại trong cơ sở dữ liệu không
+    const getUserQuery = 'SELECT * FROM user WHERE EMAIL = ?';
+    db.query(getUserQuery, [email], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to authenticate user !' });
         }
-        //Kiểm tra người dùng có tồn tại không
-        if (results.length == 0) {
-            return res.status(401).json({ error: 'Invalid email or password !' });
+
+        if (results.length === 0) {
+            return res.status(401).json({ error: 'User not found !' });
         }
 
         const user = results[0];
 
-        bcrypt.compare(password, user.password, (err, isMathch) => {
+        // So sánh mật khẩu đã hash với mật khẩu người dùng cung cấp
+        bcrypt.compare(password, user.PASSWORD, (err, isMatch) => {
             if (err) {
                 return res.status(500).json({ error: 'Failed to authenticate user !' });
             }
-            if (!isMathch) {
+
+            if (!isMatch) {
                 return res.status(401).json({ error: 'Invalid email or password !' });
-            }
-            else
-                res.status(200).json({ message: 'Login successfully !' });
+            }else
+                res.status(200).json({ message: 'Login successful !'});
         });
     });
 });
