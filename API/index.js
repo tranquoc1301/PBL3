@@ -9,18 +9,25 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/register', [
+    check('name').notEmpty(),
     check('email').isEmail().normalizeEmail(),
-    check('password').isLength({ min: 8 })
+    check('password').isLength({ min: 8 }),
+    check('confirmPassword').custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error('Passwords do not match');
+        }
+        return true;
+    })
 ], (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
 
-    const { email, password, privilege_id } = req.body;
+    const { name, email, password } = req.body;
 
     // Kiểm tra xem người dùng đã tồn tại hay chưa
-    const checkUserQuery = 'SELECT * FROM user WHERE email = ?';
+    const checkUserQuery = 'SELECT * FROM USER WHERE EMAIL = ?';
     db.query(checkUserQuery, [email], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to register user !' });
@@ -37,8 +44,8 @@ app.post('/register', [
                 return res.status(500).json({ error: 'Failed to register user !' });
             }
 
-            const insertUserQuery = 'INSERT INTO user (EMAIL, PASSWORD, PRIVILEGE_ID, CREATE_AT) VALUES (?, ?, 0, NOW())';
-            db.query(insertUserQuery, [email, hashedPassword], (err, result) => {
+            const insertUserQuery = 'INSERT INTO USER (NAME, EMAIL, PASSWORD, PRIVILEGE_ID, CREATE_AT) VALUES (?, ?, ?, 0, NOW())';
+            db.query(insertUserQuery, [name, email, hashedPassword], (err, result) => {
                 if (err) {
                     return res.status(500).json({ error: 'Failed to register user !' });
                 }
@@ -47,6 +54,7 @@ app.post('/register', [
         });
     });
 });
+
 
 app.post('/login', [
     check('email').isEmail().normalizeEmail(),
@@ -60,7 +68,7 @@ app.post('/login', [
     const { email, password } = req.body;
 
     // Kiểm tra xem người dùng có tồn tại trong cơ sở dữ liệu không
-    const getUserQuery = 'SELECT * FROM user WHERE EMAIL = ?';
+    const getUserQuery = 'SELECT * FROM USER WHERE EMAIL = ?';
     db.query(getUserQuery, [email], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to authenticate user !' });
@@ -80,8 +88,8 @@ app.post('/login', [
 
             if (!isMatch) {
                 return res.status(401).json({ error: 'Invalid email or password !' });
-            }else
-                res.status(200).json({ message: 'Login successful !'});
+            } else
+                res.status(200).json({ message: 'Login successful !' });
         });
     });
 });
