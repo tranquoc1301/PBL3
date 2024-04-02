@@ -49,7 +49,6 @@ def get_experience_requirement(source):
     return div[2].find('p', class_='text-14').get_text(' ', strip=True)
 
 
-# Continue
 def get_role(source):
     div = source.find_all('div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
     divv = div[0].find_all('div', class_='flex items-center mb-4 md:w-[33%]')

@@ -53,15 +53,13 @@ def get_profile_info_24(driver, url):
         logger.error(f"Error occurred while scraping data from {url}: {e}")
         return []
 
+def is_duplicated(info, data):
+    for i in data:
+        if i[0] == info[1] and i[1] == info[2] and i[2] == info[3] and i[3] == info[4] and i[4] == info[5]:
+            return True
+    return False
 
-# def is_duplicated(info, data):
-#     for i in data:
-#         if i[1] == info[0] and i[2] == info[1] and i[3] == info[2] and i[4] == info[3] and i[5] == info[4] and i[6] == \
-#                 info[5] and i[7] == info[6]:
-#             return True
-#     return False
-
-
+# cursor.execute("SELECT JOB_NAME, INDUSTRY, COMPANY_LOCATIONS, POSTED_DATE, ENROLLMENT_LOCATION FROM JOB ORDER BY JOB_ID")
 def get_job_data(driver, num_pages, link):
     try:
         page_start = 1
@@ -71,12 +69,17 @@ def get_job_data(driver, num_pages, link):
         while page_start <= num_pages:
             url = f'{link[:sec_equal_index + 5]}{page_start}{link[last_ampersand_index:]}'
             driver.get(url)
-            sleep(2)
+            sleep(1)
             profile_urls = get_profile_urls_24(driver, url)
-
+            data_DB = get_data_from_DB()
             for i in profile_urls:
                 info = get_profile_info_24(driver, i)
-                data.append(info)
+                if info == []:
+                    pass
+                else:
+                    if not is_duplicated(info, data_DB):
+                        data.append(info)
+                    
             page_start += 1
         return data
     except Exception as e:

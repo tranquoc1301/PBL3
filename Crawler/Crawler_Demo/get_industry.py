@@ -17,7 +17,7 @@ def crawl_industry():
     links = []
     industries = []  # Move the industries list outside the loop
 
-    for occupation_id in range(1, 21):
+    for occupation_id in range(1, 54):
         links.append(f'https://vieclam24h.vn/tim-kiem-viec-lam-nhanh?occupation_ids%5B%5D={occupation_id}&page=1&sort_q=')
     
     for link in links:

@@ -1,15 +1,17 @@
 import mysql.connector
 from venv import logger
 
+DB_Name = 'pbl3_database'
+DB_Password = 'Hoc12345'
 
 def save_company_into_DB(data):
     try:
-        connection = mysql.connector.connect(user='root', password='Hoc12345', host='localhost',
-                                             database='pbl3_database')
+        connection = mysql.connector.connect(user='root', password=DB_Password, host='localhost',
+                                             database=DB_Name)
         cursor = connection.cursor()
-        query = "INSERT INTO company (COMPANY_NAME, LOCATION, STAFF_SIZE, COMPANY_DESCRIPTION) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO COMPANY (COMPANY_NAME, LOCATION, STAFF_SIZE, COMPANY_DESCRIPTION) VALUES (%s, %s, %s, %s)"
         for i in data:
-            getCompanyId = "SELECT ID FROM company WHERE COMPANY_NAME = '" + str(i[0]) + "'"
+            getCompanyId = "SELECT ID FROM COMPANY WHERE COMPANY_NAME = '" + str(i[0]) + "'"
             cursor.execute(getCompanyId)
             id = cursor.fetchone()
             if id is None:
@@ -22,10 +24,10 @@ def save_company_into_DB(data):
 
 def save_industry_into_DB(data):
     try:
-        connection = mysql.connector.connect(user='root', password='Hoc12345', host='localhost',
-                                             database='pbl3_database')
+        connection = mysql.connector.connect(user='root', password=DB_Password, host='localhost',
+                                             database=DB_Name)
         cursor = connection.cursor()
-        query = "INSERT INTO industry (INDUSTRY_NAME) VALUES (%s)"
+        query = "INSERT INTO INDUSTRY (INDUSTRY_NAME) VALUES (%s)"
         for i in data:
             cursor.execute(query, [i])
 
@@ -33,15 +35,29 @@ def save_industry_into_DB(data):
         connection.close()
     except Exception as e:
         logger.error(f"Error occured while saving data to DB: {e}")
-        
+
+def save_area_into_DB(data):
+    try:
+        connection = mysql.connector.connect(user='root', password=DB_Password, host='localhost',
+                                             database=DB_Name)
+        cursor = connection.cursor()
+        query = "INSERT INTO AREA (AREA_NAME) VALUES (%s)"
+        for i in data:
+            cursor.execute(query, [i])
+
+        connection.commit()
+        connection.close()
+    except Exception as e:
+        logger.error(f"Error occured while saving data to DB: {e}")
+             
 def save_job_into_DB(data):
     try:
-        connection = mysql.connector.connect(user='root', password='Hoc12345', host='localhost',
-                                             database='pbl3_database')
+        connection = mysql.connector.connect(user='root', password=DB_Password, host='localhost',
+                                             database=DB_Name)
         cursor = connection.cursor()
-        query = "INSERT INTO pbl3_database.job(COMPANY_ID, JOB_NAME, INDUSTRY, COMPANY_LOCATIONS, POSTED_DATE, ENROLLMENT_LOCATION, `ROLE`, SALARY, GENDER_REQUIREMENT, NUMBER_OF_RECRUITMENT,  AGE_REQUIREMENT, PROBATION_TIME,  WORKWAY, EXPERIENCE_REQUIREMENT, DEGREE_REQUIREMENT, BENEFITS, JOB_DESCRIPTION, JOB_REQUIREMENT, DEADLINE, SOURCE_PICTURE) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+        query = "INSERT INTO JOB(COMPANY_ID, JOB_NAME, INDUSTRY, COMPANY_LOCATIONS, POSTED_DATE, ENROLLMENT_LOCATION, `ROLE`, SALARY, GENDER_REQUIREMENT, NUMBER_OF_RECRUITMENT,  AGE_REQUIREMENT, PROBATION_TIME,  WORKWAY, EXPERIENCE_REQUIREMENT, DEGREE_REQUIREMENT, BENEFITS, JOB_DESCRIPTION, JOB_REQUIREMENT, DEADLINE, SOURCE_PICTURE) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
         for i in data:
-            getCompanyId = "SELECT ID FROM company WHERE COMPANY_NAME = '" + str(i[0]) + "'"
+            getCompanyId = "SELECT ID FROM COMPANY WHERE COMPANY_NAME = '" + str(i[0]) + "'"
             companyId = get_company_id_FromDB(getCompanyId)
             tmp = []
             tmp.append(companyId)
@@ -56,8 +72,8 @@ def save_job_into_DB(data):
 
 def get_company_id_FromDB(data):
     try:
-        connection = mysql.connector.connect(user='root', password='Hoc12345', host='localhost',
-                                             database='pbl3_database')
+        connection = mysql.connector.connect(user='root', password=DB_Password, host='localhost',
+                                             database=DB_Name)
         cursor = connection.cursor()
         cursor.execute(data)
         res = cursor.fetchone()
@@ -65,3 +81,17 @@ def get_company_id_FromDB(data):
         return res
     except Exception as e:
         logger.error(f"Error occured while saving data to DB: {e}")
+        
+def get_data_from_DB():
+    try:
+        connection = mysql.connector.connect(user='root', password=DB_Password, host='localhost',
+                                             database=DB_Name)
+        cursor = connection.cursor()
+        cursor.execute("SELECT JOB_NAME, INDUSTRY, COMPANY_LOCATIONS, POSTED_DATE, ENROLLMENT_LOCATION FROM JOB ORDER BY JOB_ID")
+        data = cursor.fetchall()
+        connection.close()
+        return data
+    except Exception as e:
+        print(f"Error occurred while retrieving data from database: {e}")
+        return []
+    
