@@ -1,36 +1,20 @@
-const express = require('express');
-const { check, validationResult } = require('express-validator');
+const connect = require('../config/database');
 const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
-const db = require('./db');
-const port = 3000;
+const { check, validationResult } = require('express-validator');
 
-const app = express();
-app.use(bodyParser.json());
-
-app.post('/register', [
-    check('name').notEmpty(),
-    check('email').isEmail().normalizeEmail(),
-    check('password').isLength({ min: 8 }),
-    check('confirmPassword').custom((value, { req }) => {
-        if (value !== req.body.password) {
-            throw new Error('Passwords do not match');
-        }
-        return true;
-    })
-], (req, res) => {
+const postRegisterUser = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { email, password, privilege_id } = req.body;
 
     // Kiểm tra xem người dùng đã tồn tại hay chưa
-    const checkUserQuery = 'SELECT * FROM USER WHERE EMAIL = ?';
-    db.query(checkUserQuery, [email], (err, results) => {
+    const checkUserQuery = 'SELECT * FROM user WHERE email = ?';
+    connect.query(checkUserQuery, [email], (err, results) => {
         if (err) {
-            return res.status(500).json({ error: 'Failed to register user !' });
+            return res.status(500).json({ error: 'Failed to register user 1 !' });
         }
 
         // Nếu đã tồn tại người dùng có cùng email trong cơ sở dữ liệu
@@ -41,25 +25,22 @@ app.post('/register', [
         // Nếu không có người dùng nào cùng email tồn tại, tiến hành đăng ký
         bcrypt.hash(password, 10, (err, hashedPassword) => {
             if (err) {
-                return res.status(500).json({ error: 'Failed to register user !' });
+                return res.status(500).json({ error: 'Failed to register user 2 !' });
             }
 
-            const insertUserQuery = 'INSERT INTO USER (NAME, EMAIL, PASSWORD, PRIVILEGE_ID, CREATE_AT) VALUES (?, ?, ?, 0, NOW())';
-            db.query(insertUserQuery, [name, email, hashedPassword], (err, result) => {
+            const insertUserQuery = 'INSERT INTO user (EMAIL, PASSWORD, PRIVILEGE_ID, CREATE_AT) VALUES (?, ?, 0, NOW())';
+            connect.query(insertUserQuery, [email, hashedPassword], (err, result) => {
                 if (err) {
-                    return res.status(500).json({ error: 'Failed to register user !' });
+                    return res.status(500).json({ error: 'Failed to register user 3 !' });
                 }
                 res.status(201).json({ message: 'User registered successfully !' });
             });
         });
     });
-});
 
+}
 
-app.post('/login', [
-    check('email').isEmail().normalizeEmail(),
-    check('password').isLength({ min: 8 })
-], (req, res) => {
+const postLoginUser = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -68,8 +49,8 @@ app.post('/login', [
     const { email, password } = req.body;
 
     // Kiểm tra xem người dùng có tồn tại trong cơ sở dữ liệu không
-    const getUserQuery = 'SELECT * FROM USER WHERE EMAIL = ?';
-    db.query(getUserQuery, [email], (err, results) => {
+    const getUserQuery = 'SELECT * FROM user WHERE EMAIL = ?';
+    connect.query(getUserQuery, [email], (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Failed to authenticate user !' });
         }
@@ -92,8 +73,10 @@ app.post('/login', [
                 res.status(200).json({ message: 'Login successful !' });
         });
     });
-});
+}
 
-app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
-});
+
+module.exports = {
+    postRegisterUser,
+    postLoginUser
+}
