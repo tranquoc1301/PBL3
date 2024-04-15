@@ -2,6 +2,7 @@ const { check, validationResult, body } = require('express-validator');
 const { postRegisterUser, postLoginUser } = require('../controllers/homeController')
 const { getJobList, getJobListByIndustry, getJobListByArea, getJobListByName, createJob } = require('../controllers/job.Controllers')
 const { getCompanyList, searchCompany, createCompany } = require('../controllers/company.Controllers')
+const { getIndustryList } = require('../controllers/industry.Controllers')
 
 const express = require('express');
 
@@ -10,20 +11,20 @@ const router = express.Router();
 router.post('/register', [
     check('email').isEmail().normalizeEmail(),
     check('password').isLength({ min: 8 })
-], postRegisterUser)
+], postRegisterUser);
 
 router.post('/login', [
     check('email').isEmail().normalizeEmail(),
     check('password').isLength({ min: 8 })
-], postLoginUser)
+], postLoginUser);
 
-router.get('/jobs/jobList', getJobList)
+router.get('/jobs/job-list', getJobList);
 
-router.get('/jobs/jobListByIndustry', getJobListByIndustry)
+router.get('/jobs/job-list-by-industry', getJobListByIndustry);
 
-router.get('/jobs/jobListByArea', getJobListByArea)
+router.get('/jobs/job-list-by-area', getJobListByArea);
 
-router.get('/jobs/jobListByName', getJobListByName)
+router.get('/jobs/job-list-by-name', getJobListByName);
 
 router.post('/jobs/create', [
     body('jobName').isString().notEmpty(),
@@ -43,17 +44,22 @@ router.post('/jobs/create', [
     body('jobRequirement').isString().notEmpty(),
     body('deadline').isDate().notEmpty()
 
-], createJob)
+], createJob);
 
-router.post('/company/create',[
+router.post('/company/create', [
     body('companyName').isString().notEmpty(),
     body('location').isString().notEmpty(),
     body('staffSize').isString().notEmpty(),
     body('companyDescription').isString().notEmpty()
-], createCompany)
+], createCompany);
 
-router.get('/company/companyList', getCompanyList)
+router.get('/company/company-list', getCompanyList);
 
-router.get('/company/search', searchCompany)
+router.get('/company/search', searchCompany);
+
+router.post('/company/create', createCompany);
+
+router.get('/industry/industry-list', getIndustryList);
+
 
 module.exports = router;

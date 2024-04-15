@@ -64,6 +64,7 @@ const createCompany = (req, res) => {
         });
     });
 }
+
 module.exports = {
     getCompanyList,
     searchCompany,

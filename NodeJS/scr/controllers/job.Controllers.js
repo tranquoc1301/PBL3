@@ -1,6 +1,9 @@
 const connect = require('../config/database');
+require('dotenv').config();
 const { validationResult } = require('express-validator');
-const { getCompanyList } = require('./company.Controllers');
+const { searchCompany, createCompany } = require('./company.Controllers');
+const axios = require('axios');
+const PORT = process.env.PORT;
 
 const getJobList = (req, res) => {
     const query = 'SELECT * FROM JOB';
@@ -95,28 +98,51 @@ const getJobListByName = (req, res) => {
     });
 };
 
-const createJob = (req, res) => {
-    // Kiểm tra lỗi từ Express Validator
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-    const companyList = getCompanyList();
+const createJob = async (req, res) => {
+    const jobData = req.body;
+    const { COMPANY_NAME } = jobData;
 
-    const { jobName, industry, location, enrollmentLocation, companyName, salary, genderRequirement, numberOfRecruitment, ageRequirement, probationTime, workWay, experienceRequirement, degreeRequirement, benefits, jobDescription, jobRequirement, deadline } = req.body;
-
-
-    // Thực hiện truy vấn SQL để tạo mới công việc trong CSDL
-    const query = 'INSERT INTO JOB (JOB_NAME, INDUSTRY, LOCATION, POSTED_DATE, ENROLLMENT_LOCATION, SALARY, GENDER_REQUIREMENT, NUMBER_OF_RECRUITMENT, AGE_REQUIREMENT, PROBATION_TIME, WORKWAY, EXPERIENCE_REQUIREMENT, DEGREE_REQUIREMENT, BENEFITS, JOB_DESCRIPTION, JOB_REQUIREMENT, DEADLINE) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    connect.query(query, [jobName, industry, location, enrollmentLocation, salary, genderRequirement, numberOfRecruitment, ageRequirement, probationTime, workWay, experienceRequirement, degreeRequirement, benefits, jobDescription, jobRequirement, deadline], (error, results) => {
-        if (error) {
-            console.error('MySQL Error:', error);
-            res.status(500).json({ error: 'Server Error' });
-            return;
+    try {
+        // Kiểm tra nếu công ty đã tồn tại
+        const [Company] = await connect.promise().query('SELECT ID FROM COMPANY WHERE COMPANY_NAME = ?', [COMPANY_NAME]);
+        if (Company && Company.length > 0) {
+            const companyId = Company[0].ID;
+            insertJob(companyId);
+        } else {
+            // Nếu không tồn tại, tạo mới công ty và thêm công việc
+            const companyData = {
+                companyName: COMPANY_NAME,
+                location: jobData.LOCATION,
+                staffSize: jobData.STAFF_SIZE,
+                companyDescription: jobData.COMPANY_DESCRIPTION
+            };
+            const companyResponse = await axios.post(`http://localhost:${PORT}/company/create`, companyData);
+            const companyId = companyResponse.data.companyId;
+            insertJob(companyId);
         }
-        res.status(201).json({ message: 'Job created successfully' });
-    });
+    } catch (err) {
+        console.error('Error checking/creating company:', err);
+        return res.status(500).send({ error: 'Error checking/creating company', message: err.message });
+    }
+
+    function insertJob(companyId) {
+
+        jobData.COMPANY_ID = companyId;
+        delete jobData.COMPANY_NAME;
+
+        const insertQuery = `INSERT INTO JOB SET ?, POSTED_DATE = DATE_FORMAT(NOW(), '%d-%m-%Y %H:%i')`;
+
+        connect.query(insertQuery, jobData, (err, result) => {
+            if (err) {
+                console.error('Error creating job:', err);
+                return res.status(500).send({ error: 'Error creating job', message: err.message });
+            }
+            res.status(201).send({ message: 'Job created successfully', jobId: result.insertId });
+        });
+    }
 };
+
+
 
 module.exports = {
     getJobList,
