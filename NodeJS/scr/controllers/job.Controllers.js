@@ -99,6 +99,11 @@ const getJobListByName = (req, res) => {
 };
 
 const createJob = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const jobData = req.body;
     const { COMPANY_NAME } = jobData;
 
@@ -121,8 +126,8 @@ const createJob = async (req, res) => {
             insertJob(companyId);
         }
     } catch (err) {
-        console.error('Error checking/creating company:', err);
-        return res.status(500).send({ error: 'Error checking/creating company', message: err.message });
+        console.error('Error creating company:', err);
+        return res.status(500).send({ error: 'Error creating company', message: err.message });
     }
 
     function insertJob(companyId) {
@@ -142,12 +147,47 @@ const createJob = async (req, res) => {
     }
 };
 
+const updateJob = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
+    const id = req.query.id;
+    const jobData = req.body;
 
+    try {
+        const result = await connect.promise().query(`UPDATE JOB SET ? WHERE JOB_ID = ?`, [jobData, id]);
+        if (result[0].changedRows === 0) {
+            return res.status(404).send({ error: 'Job not found' });
+        }
+        res.status(200).send({ message: 'Job updated successfully' });
+    } catch (err) {
+        console.error('Error updating job:', err);
+        return res.status(500).send({ error: 'Error updating job', message: err.message });
+    }
+}
+
+const deleteJob = async (req, res) => {
+    const id = req.query.id;
+    try {
+        const result = await connect.promise().query(`DELETE FROM JOB WHERE JOB_ID = ?`, [id]);
+        if (result[0].affectedRows === 0) {
+            return res.status(404).send({ error: 'Job not found' });
+        }
+        res.status(200).send({ message: 'Job deleted successfully' });
+    } catch (err) {
+        console.error('Error delete job:', err);
+        return res.status(500).send({ error: 'Error delete job', message: err.message });
+    }
+}
 
 module.exports = {
     getJobList,
     getJobListByIndustry,
     getJobListByArea,
     getJobListByName,
-    createJob
+    createJob,
+    updateJob,
+    deleteJob
 }

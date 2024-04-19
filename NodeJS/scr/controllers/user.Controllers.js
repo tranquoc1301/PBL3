@@ -42,8 +42,13 @@ const getUserList = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const id = req.query.id;
-    const { name, email, gender, date_of_birth } = req.body;
+    const { name, email, gender, dateOfBirth } = req.body;
 
     try {
         // Kiểm tra xem người dùng tồn tại hay không
@@ -55,7 +60,7 @@ const updateUser = async (req, res) => {
         }
         // Cập nhật thông tin người dùng
         const updateUserQuery = 'UPDATE USER SET NAME = ?, EMAIL = ?, GENDER = ?, DATE_OF_BIRTH = str_to_date(?, "%Y-%m-%d"), UPDATED_AT = NOW() WHERE ID = ?';
-        await connect.promise().query(updateUserQuery, [name, email, gender, date_of_birth, id]);
+        await connect.promise().query(updateUserQuery, [name, email, gender, dateOfBirth, id]);
 
 
         res.status(200).json({ cod: "200", msg: 'Update user successfully !' });
