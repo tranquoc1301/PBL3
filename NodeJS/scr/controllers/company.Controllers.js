@@ -65,8 +65,44 @@ const createCompany = (req, res) => {
     });
 }
 
+const updateCompany = async (req, res) => {
+    const  id  = req.query.id;
+    const { companyName, staffSize, companyDescription } = req.body;
+
+    try {
+        const result = await connect.promise().query('UPDATE COMPANY SET COMPANY_NAME = ?, STAFF_SIZE = ?, COMPANY_DESCRIPTION = ? WHERE ID = ?', [companyName, staffSize, companyDescription, id]);
+        if (result[0].changedRows === 0) {
+            return res.status(404).send({ error: 'Company not found' });
+        }
+        res.status(200).send({ message: 'Company updated successfully' });
+    } catch (err) {
+        console.error('Error updating company:', err);
+        return res.status(500).send({ error: 'Error updating company', message: err.message });
+    }
+};
+
+const deleteCompany = async (req, res) => {
+    const id = req.query.id;
+
+    try {
+        const result = await connect.promise().query('DELETE FROM COMPANY WHERE ID = ?', [id]);
+
+        if (result[0].affectedRows === 0) {
+            return res.status(404).send({ error: 'Company not found' });
+        }
+
+        res.status(200).send({ message: 'Company deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting company:', err);
+        return res.status(500).send({ error: 'Error deleting company', message: err.message });
+    }
+};
+
+
 module.exports = {
     getCompanyList,
     searchCompany,
-    createCompany
+    createCompany,
+    updateCompany,
+    deleteCompany
 }
