@@ -5,8 +5,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 
+
 def get_company_name(source):
-    return source.find('h3', class_='font-normal text-16 text-se-neutral-64 mb-4').get_text(' ', strip=True)
+    return source.find('h2', class_='font-normal text-16 text-se-neutral-64 mb-4').get_text(' ', strip=True)
 
 
 def get_job_title(source):
@@ -14,43 +15,65 @@ def get_job_title(source):
 
 
 def get_job_industry(source):
-    return source.find('p', class_='text-14 text-se-accent font-semibold').get_text(' ', strip=True)
+    industry_source = source.find(
+        'p', class_='text-14 text-se-accent font-semibold')
+    if industry_source:
+        industries = industry_source.find_all(
+            'a', class_='jsx-d84db6a84feb175e hover:text-se-accent')
+        job_industry = ""
+        for industry in industries:
+            job_industry += industry.get_text(' ', strip=True)
+        return job_industry
 
 
 def get_company_location(source):
-    div = source.find_all('div', class_='text-14 text-se-grey-48 font-semibold')
-    return div[0].get_text(' ', strip=True)
+    divs = source.find_all(
+        'div', class_='text-14 text-se-grey-48 font-semibold')
+    if divs:
+        description_text = ""
+        for div in divs[0]:
+            # Sử dụng '\n' để tạo dòng mới
+            description_text += div.get_text('\n', strip=True) + "\n"
+        return description_text.strip()  # Loại bỏ khoảng trắng thừa ở đầu và cuối chuỗi
+    return None
 
 
 def get_company_staff_size(source):
-    div = source.find_all('div', class_='text-14 text-se-grey-48 font-semibold')
+    div = source.find_all(
+        'div', class_='text-14 text-se-grey-48 font-semibold')
     return div[1].get_text(' ', strip=True)
 
 
 def get_company_description(source):
-    div_element = source.find('div', class_='max-h-[84px] overflow-hidden mt-4 text-14 text-se-neutral-84 mb-2')
-    p_element = div_element.find('p')
-    return p_element.get_text(' ', strip=True)
+    return source.find(
+        'div', class_='max-h-[84px] overflow-hidden mt-4 text-14 text-se-neutral-84 mb-2').get_text(' ', strip=True)
 
 
 def get_NumEmployee(source):
-    div = source.find_all('div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
+    div = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
     if len(div[1].find_all('div', class_='flex items-center mb-4 md:w-[33%]')) == 1:
-        num_div = div[1].find('div', class_='flex items-center mb-4 md:w-[33%]')
-        num_of_employee = num_div.find('p', class_='text-14').get_text(' ', strip=True)
+        num_div = div[1].find(
+            'div', class_='flex items-center mb-4 md:w-[33%]')
+        num_of_employee = num_div.find(
+            'p', class_='text-14').get_text(' ', strip=True)
     elif len(div[1].find_all('div', class_='flex items-center mb-4 md:w-[33%]')) == 2:
-        num_div = div[1].find_all('div', class_='flex items-center mb-4 md:w-[33%]')
-        num_of_employee = num_div[1].find('p', class_='text-14').get_text(' ', strip=True)
+        num_div = div[1].find_all(
+            'div', class_='flex items-center mb-4 md:w-[33%]')
+        num_of_employee = num_div[1].find(
+            'p', class_='text-14').get_text(' ', strip=True)
     return num_of_employee
 
 
 def get_experience_requirement(source):
-    div = source.find_all('div', class_='flex items-center mb-4 w-full md:w-[33%]')
+    div = source.find_all(
+        'div', class_='flex items-center mb-4 w-full md:w-[33%]')
     return div[2].find('p', class_='text-14').get_text(' ', strip=True)
 
 
 def get_role(source):
-    div = source.find_all('div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
+    div = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
     divv = div[0].find_all('div', class_='flex items-center mb-4 md:w-[33%]')
     if len(div[0].find_all('div', class_='flex items-center mb-4 md:w-[33%]')) == 2:
         div_level = divv[1]
@@ -66,25 +89,40 @@ def get_salary(source):
 
 
 def get_edu(source):
-    div = source.find_all('div', class_='flex items-center mb-4 w-full md:w-[33%]')
+    div = source.find_all(
+        'div', class_='flex items-center mb-4 w-full md:w-[33%]')
     return div[1].find('p', class_='text-14').get_text(' ', strip=True)
 
 
 def get_requirement(source):
-    div = source.find_all('div',
-                          class_='jsx-d84db6a84feb175e mb-2 text-14 break-words text-se-neutral-80 text-description')
-    return div[1].get_text(' ', strip=True)
+    divs = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e mb-2 text-14 break-words text-se-neutral-80 text-description')
+    if divs:
+        requirement_text = ""
+        for div in divs[1]:
+            # Sử dụng '\n' để tạo dòng mới
+            requirement_text += div.get_text('\n', strip=True) + "\n"
+        return requirement_text.strip()  # Loại bỏ khoảng trắng thừa ở đầu và cuối chuỗi
+    return None
 
 
 def get_description(source):
-    div = source.find_all('div',
-                          class_='jsx-d84db6a84feb175e mb-2 text-14 break-words text-se-neutral-80 text-description')
-    return div[0].get_text(' ', strip=True)
+    divs = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e mb-2 text-14 break-words text-se-neutral-80 text-description')
+    if divs:
+        description_text = ""
+        for div in divs[0]:
+            # Sử dụng '\n' để tạo dòng mới
+            description_text += div.get_text('\n', strip=True) + "\n"
+        return description_text.strip()  # Loại bỏ khoảng trắng thừa ở đầu và cuối chuỗi
+    return None
 
 
 def get_deadline_enrollment(source):
-    div = source.find_all('div', class_='ml-3 text-14 md:flex pt-0 md:pt-[5px]')
-    date_ = div[1].get_text(' ', strip=True)
+    div = source.find(
+        'div', class_='flex items-start min-w-[250px] mb-4 md:pl-6 md:border-l')
+    h2 = div.find('h2', class_='ml-3 text-14 md:flex pt-0 md:pt-[5px] my-0')
+    date_ = h2.get_text(' ', strip=True)
     part = date_.find(':')
     return date_[part + 2:]
 
@@ -101,28 +139,35 @@ def get_posted_date(source):
 
 
 def get_enrollment_location(source):
-    div = source.find_all('div', class_='ml-3 text-14 md:flex pt-0 md:pt-[5px]')
-    div_ = div[2].get_text(' ', strip=True)
-    part = div_.find(':')
-    return div_[part + 2:]
+    div = source.find(
+        'div', class_='flex items-start min-w-[250px] mb-4 mb-6')
+    h2 = div.find('h2', class_='ml-3 text-14 md:flex pt-0 md:pt-[5px] my-0')
+    date_ = h2.get_text(' ', strip=True)
+    part = date_.find(':')
+    return date_[part + 2:]
 
 
 def get_probation(source):
-    div = source.find_all('div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
+    div = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
     divv = div[0].find_all('div', class_='flex items-center mb-4 md:w-[33%]')
     if len(div[0].find_all('div', class_='flex items-center mb-4 md:w-[33%]')) == 3:
         div_level = divv[1]
-        probation = div_level.find('p', class_='text-14').get_text(' ', strip=True)
+        probation = div_level.find(
+            'p', class_='text-14').get_text(' ', strip=True)
         return probation
     else:
         return 'None'
 
 
 def get_gender(source):
-    div = source.find_all('div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
+    div = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
     if len(div[1].find_all('div', class_='flex items-center mb-4 md:w-[33%]')) == 2:
-        num_div = div[1].find_all('div', class_='flex items-center mb-4 md:w-[33%]')
-        gender = num_div[0].find('p', class_='text-14').get_text(' ', strip=True)
+        num_div = div[1].find_all(
+            'div', class_='flex items-center mb-4 md:w-[33%]')
+        gender = num_div[0].find(
+            'p', class_='text-14').get_text(' ', strip=True)
 
         return gender
     else:
@@ -130,22 +175,29 @@ def get_gender(source):
 
 
 def get_work_way(source):
-    div = source.find_all('div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
+    div = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
     way = div[1].find('div', class_='flex items-center mb-4 w-full md:w-[33%]').find('p', class_='text-14').get_text(
         ' ', strip=True)
     return way
 
 
 def get_age_requirement(source):
-    div = source.find_all('div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
+    div = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e md:flex md:border-b border-[#DDD6FE] mb-4')
     if (div[2].find('div', class_='flex items-center mb-4 md:w-[33%]')):
-        age = div[2].find('div', class_='flex items-center mb-4 md:w-[33%]').find('p', class_='text-14').get_text(' ',
-                                                                                                                  strip=True)
+        age = div[2].find('div', class_='flex items-center mb-4 md:w-[33%]').find('p', class_='text-14').get_text(' ',strip=True)
         return age
     else:
         return 'None'
 
 
 def get_benefit(source):
-    div = source.find_all('div', class_='jsx-d84db6a84feb175e mb-2 text-14 break-words text-se-neutral-80 text-description')
-    return div[2].get_text(' ', strip=True)
+    divs = source.find_all(
+        'div', class_='jsx-d84db6a84feb175e mb-2 text-14 break-words text-se-neutral-80 text-description')
+    if divs:
+        description_text = ""
+        for div in divs[2]:
+            description_text += div.get_text('\n', strip=True) + "\n"
+        return description_text.strip()  # Loại bỏ khoảng trắng thừa ở đầu và cuối chuỗi
+    return None
