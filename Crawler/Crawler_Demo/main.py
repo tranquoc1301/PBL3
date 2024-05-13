@@ -22,7 +22,7 @@ def removeIfDuplicate(data):
 def crawl_data():
     crawl_by_industry_links = []
     occupation_id = 1
-    for occupation_id in range(1, 2):
+    for occupation_id in range(1, 54):
         crawl_by_industry_links.append(
             f'https://vieclam24h.vn/tim-kiem-viec-lam-nhanh?occupation_ids%5B%5D={occupation_id}&page=1&sort_q=')
 
