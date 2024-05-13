@@ -18,13 +18,21 @@ def removeIfDuplicate(data):
             continue
     return tmp
 
+
 def crawl_data():
     crawl_by_industry_links = []
     occupation_id = 1
-    for occupation_id in range(1, 54):
+    for occupation_id in range(1, 2):
         crawl_by_industry_links.append(
             f'https://vieclam24h.vn/tim-kiem-viec-lam-nhanh?occupation_ids%5B%5D={occupation_id}&page=1&sort_q=')
 
+    # industry = crawl_industry()
+    # save_industry_into_DB(industry)
+    area = crawl_area()
+    area.pop(0)
+    area.sort()
+    save_area_into_DB(area)
+    
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     try:
@@ -40,17 +48,11 @@ def crawl_data():
                     temp.append(d[20])  # CONPANY_STAFF_SIZE
                     temp.append(d[21])  # COMPANY_DESCRIPTION
                     company_data.append(temp)
-                
+
                 company_data = removeIfDuplicate(company_data)
                 save_company_into_DB(company_data)
                 save_job_into_DB(data)
-                
-        industry = crawl_industry()
-        save_industry_into_DB(industry)
-        area = crawl_area()
-        area.sort()
-        save_area_into_DB(area)
-        
+
     except Exception as e:
         logger.error(f"Error occurred while scraping data: {e}")
     print('Finish scraping !')
