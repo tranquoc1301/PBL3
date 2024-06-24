@@ -1,0 +1,25 @@
+
+Hướng dẫn chạy chương trình:
+Bước 1: Tạo database trên MySQL và mở file pbl3sql. Sau đó tạo các table trên database vừa tạo theo file.
+Bước 2: Mở folder Crawler trên VSCode vào file Crawler_Demo chạy file main để tiến hành crawl dữ liệu (Lưu ý: thay đổi các thông tin database trong file DB.py theo database vừa tạo ở bước 1) hoặc có thể insert dữ liệu có sẵn trong các file …_data vào bảng tương ứng trong database.
+Bước 3: Cài đặt NodeJS. Truy cập web https://www.npmjs.com/ tìm kiếm và cài đặt các thư viện sau:
+• app-root-path
+• axios
+• bcrypt
+• bcryptjs
+• body-parser
+• dotenv
+• ejs
+• express
+• express-validator
+• jsonwebtoken
+• multer
+• mysql
+• mysql2
+• nodemon
+• uuid 
+Sau đó mở folder Backend trên VSCode, vào src chạy file helloworldwithexpress.js để tiến hành chạy Backend (Lưu ý: thay đổi các thông tin database trong file database.js trong folder config theo database vừa tạo ở bước 1).
+Bước 4: Cài đặt Android Studio. Mở folder Android App/PBL3 trên Android Studio đợi app tải các thư viện, build gradle. Sau khi build xong nhấn vào nút ► trên thanh toolbar trên cùng để chạy app, app sẽ được chạy trên máy ảo android được cài trên app hoặc kết nối qua điện thoại Android của người dùng (Lưu ý: Nếu khi đăng nhập báo lỗi check your internet connection thì vào app/java/com.example.myapplication/controller/ApiService ở dòng String url sửa lại địa chỉ IP 192.168.1.7 thành địa chỉ IPv4 trên máy (check bằng ipconfig trên cmd)).
+
+
+
