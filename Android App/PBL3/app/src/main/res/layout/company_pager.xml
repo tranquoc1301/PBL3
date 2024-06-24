@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:foreground="@drawable/custom_conner"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/company_image"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:src="@drawable/company_image"
+                android:scaleType="centerCrop"
+                />
+            <ImageView
+                android:id="@+id/company_logo"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:src="@drawable/topdev_logo"
+                android:layout_gravity="bottom"
+                android:layout_margin="20dp"
+                android:background="@color/white"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Top Dev"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:id="@+id/company_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/topdev_intro"
+            android:textSize="15sp"
+            android:lines="3"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/num_jobs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4 jobs"
+            android:textSize="18sp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

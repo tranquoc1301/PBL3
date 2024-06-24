@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.RegisterFragment"
+    android:orientation="vertical"
+    android:id="@+id/register_fragment">
+
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_above="@+id/login_Edit_Layout">
+        <TextView
+            android:id="@+id/tv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:text="Register"
+            android:fontFamily="@font/inido_daisy"
+            />
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:text="Let's join us and \nbuild your relationship with orthers"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/roboto_regular"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_Edit_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:orientation="vertical"
+        android:layout_centerVertical="true">
+
+        <EditText
+            android:id="@+id/name_et"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textEmailAddress"
+            android:hint="Your name"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edit_text"
+            />
+
+        <EditText
+            android:id="@+id/email_et"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/custom_edit_text"
+            />
+
+        <EditText
+            android:id="@+id/password_et"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edit_text"
+            />
+
+
+
+        <EditText
+            android:id="@+id/retype_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textPassword"
+            android:hint="Re-type password"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edit_text"
+            />
+
+        <TextView
+            android:id="@+id/select_date"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/custom_edit_text"
+            android:hint="Date of birth"
+            android:padding="12dp"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            tools:ignore="Deprecated"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text">
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/select_gender"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_regular"
+                />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/error_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:textColor="#f54242"
+            android:paddingStart="12dp"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/register_Btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Register"
+        android:fontFamily="@font/roboto_regular"
+        android:background="@drawable/custom_btn"
+        app:backgroundTint = "@null"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_above="@+id/left_Arrow"/>
+
+    <ImageView
+        android:id="@+id/left_Arrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/swipe_Text"
+        android:src="@drawable/ic_arrow_left"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/swipe_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="swipe left to login"
+        android:textSize="17sp"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
+
+
+
+
+
+
+
+</RelativeLayout>

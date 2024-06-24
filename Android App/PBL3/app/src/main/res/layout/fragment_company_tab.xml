@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.CompanyTabFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/company_logo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/topdev_logo"/>
+
+    <TextView
+        android:id="@+id/company_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/company_logo"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        />
+
+
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/info_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Information"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@id/company_logo"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/location_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/location_icon"
+        android:layout_below="@id/info_tv"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/location_tv"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_tv"
+        android:layout_toEndOf="@id/location_icon"
+        android:textSize="18sp"
+        android:layout_marginStart="10dp"/>
+
+    <ImageView
+        android:id="@+id/group_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/group_icon"
+        android:layout_below="@id/location_tv"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/staff_size_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_below="@id/location_tv"
+        android:layout_toEndOf="@id/group_icon"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/company_dcp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Company Description"
+        android:layout_below="@id/staff_size_tv"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/company_dcp"
+        android:id="@+id/company_scrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Company Other Jobs"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_below="@id/company_scrip"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/company_scrip"
+        android:layout_marginTop="58dp"/>
+
+</RelativeLayout>

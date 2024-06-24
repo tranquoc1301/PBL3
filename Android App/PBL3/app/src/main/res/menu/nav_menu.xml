@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/menu">
+        <menu >
+            <item android:id="@+id/nav_home"
+                android:title="@string/home_nav"/>
+            <item android:id="@+id/nav_job"
+                android:title="@string/job_nav"/>
+            <item android:id="@+id/nav_companies"
+                android:title="@string/companies_nav"/>
+        </menu>
+    </item>
+    <item android:title="Infomation">
+        <menu>
+            <item android:id="@+id/nav_about_us"
+                android:title="@string/about_us"/>
+        </menu>
+    </item>
+    <item android:title="Account">
+        <menu>
+            <item android:id="@+id/nav_logout"
+                android:title="@string/logout"/>
+            <item android:id="@+id/my_apply_job"
+                android:title="My apply job"/>
+        </menu>
+    </item>
+    <item android:id="@+id/admin"
+        android:title="Admin"
+        android:visible="false">
+        <menu>
+            <item android:id="@+id/adminCompany"
+                android:title="Company"/>
+            <item android:id="@+id/adminJob"
+                android:title="Job"/>
+            <item android:id="@+id/adminUser"
+                android:title="User"/>
+        </menu>
+    </item>
+</menu>

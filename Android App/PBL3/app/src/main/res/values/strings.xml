@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Bách khoa Jobs</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_nav">Home</string>
+    <string name="job_nav">All job</string>
+    <string name="companies_nav">Companies</string>
+    <string name="Menu_title">Menu</string>
+    <string name="about_us">About us</string>
+    <string name="logout">Log out</string>
+    <string name="menu">Menu</string>
+    <string name="topdev_intro">We are American company that specializes in developing software for the music industry. The programs we develop help record labels and artists market and monetize their music. We have offices in US and Europe, and we opened our Hanoi office in 2018. We are a young, dynamic company that is committed to making the music industry a simpler, more profitable place for artists..</string>
+    <string name="viettel_intro">Tổng Công ty Giải pháp Doanh nghiệp Viettel (VTS) là đơn vị trực thuộc Tập đoàn Công nghiệp - Viễn thông Quân đội Viettel được thành lập với sứ mệnh đồng hành cùng Chính phủ xây dựng thành công một “Chính phủ kiến tạo – Chính phủ số”, hợp tác cùng các doanh nghiệp và người dân để giải quyết các vấn đề của xã hội, mang lại cuộc sống tốt đẹp hơn cho mọi người. Tổng Công ty Giải pháp Doanh nghiệp Viettel hiện có Trung tâm nghiên cứu phát triển làm chủ những công nghệ mới của cách mạng công nghiệp 4.0 (Big Data, AI, IoT, AR/VR, Cloud, Blockchain…) đưa ra các giải pháp cho thành phố thông minh và chuyển đổi số cho doanh nghiệp, chính phủ, các tổ chức với các hướng như kết nối, chia sẻ và trải nghiệm khách hàng.</string>
+    <string name="microsoft_intro">Microsoft Corporation is an American multinational technology corporation headquartered in Redmond, Washington. Microsofts best-known software products are the Windows line of operating systems, the Microsoft 365 suite of productivity applications, and the Edge web browser. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers.</string>
+    <string name="pb_intro">Public Bank Vietnam (PBVN) là ngân hàng 100% vốn nước ngoài thuộc sở hữu của Public Bank Berhad, Malaysia, một trong những Ngân hàng hàng đầu Malaysia về kết quả hoạt động kinh doanh và quản trị bền vững, nhất quán. Public Bank Vietnam được chuyển đổi từ Ngân hàng liên doanh VID Public - một trong những ngân hàng liên doanh đầu tiên tại Việt Nam, được thành lập ngày 25 tháng 3 năm 1992 với tỷ lệ vốn góp 50:50 giữa Ngân hàng Đầu tư và Phát triển Việt Nam (BIDV) và Public Bank Berhad, Malaysia. Trải qua hơn 30 năm hoạt động hiệu quả tại Việt Nam, hiện nay Public Bank Vietnam đã mở rộng mạng lưới lên 40 chi nhánh và phòng giao dịch (PGD) tại các tỉnh và thành phố chính của Việt Nam.</string>
+    <string name="company_name_test">Ngân hàng thương mại cổ phần bưu điện liên việt</string>
+    <string name="about_us_text">Đây là ứng dụng xem và apply công việc do bạn Bùi Quang Tuấn và Trần Quốc làm phục vụ cho PBL3: Lập Trình Ứng Dụng do thầy Nguyễn Tấn Khôi hướng dẫn </string>
+</resources>

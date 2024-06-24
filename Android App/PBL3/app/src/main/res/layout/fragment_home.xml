@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/company_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="10dp"
+            >
+
+
+        </androidx.viewpager2.widget.ViewPager2>
+        
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/Indicator"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:backgroundTint="@color/black"/>
+
+
+
+        <RelativeLayout android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hot for you"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"/>
+
+            <TextView
+                android:id="@+id/hot_job_view_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:text="View more"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:textColor="#5988f7"
+                />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hot_job_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+
+        <LinearLayout android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Popular from Companies"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"/>
+
+            <TextView
+                android:id="@+id/company_view_more"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:text="View more"
+                android:gravity="bottom"
+                android:layout_marginStart="40dp"
+                android:textColor="#5988f7"
+                />
+
+
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+        <RelativeLayout android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Latest Jobs"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"/>
+
+            <TextView
+                android:id="@+id/latest_job_view_more"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:text="View more"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:textColor="#5988f7"
+                />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/latest_job_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</androidx.core.widget.NestedScrollView>

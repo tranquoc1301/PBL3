@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.PdfViewActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp">
+
+        <Button
+            android:id="@+id/back_btn"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_arrow_left"
+            android:backgroundTint="#8f9490" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingEnd="55dp"
+            android:text="CV Details"
+            android:textAlignment="center"
+            android:textColor="#8f9490"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdf_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    
+</LinearLayout>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="30dp"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="Change password"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/old_pass_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Password"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/old_pass_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/old_pass_tv"
+            android:background="@drawable/custom_edit_text"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"/>
+
+        <TextView
+            android:id="@+id/new_pass_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="New password"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/old_pass_et"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/new_pass_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/new_pass_tv"
+            android:background="@drawable/custom_edit_text"
+            android:padding="10dp"
+            android:layout_below="@id/old_pass_et"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/confirm_pass_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Retype password"
+            android:textSize="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/old_pass_et"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/retype_pass_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/new_pass_tv"
+            android:background="@drawable/custom_edit_text"
+            android:padding="10dp"
+            android:layout_below="@id/old_pass_et"
+            android:layout_marginTop="5dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true">
+
+                <Button
+                    android:id="@+id/ok_btn"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:text="Ok"
+                    android:background="@drawable/custom_btn"
+                    />
+
+                <Button
+                    android:id="@+id/cancel_btn"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:text="Cancel"
+                    android:background="@drawable/custom_btn"
+                    android:layout_marginStart="80dp"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.CompanyEditActivity"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:paddingStart="0dp"
+        tools:ignore="RtlSymmetry">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetStart="0dp">
+
+            <Button
+                android:id="@+id/back_btn"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_arrow_left"
+                android:backgroundTint="#8f9490" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:paddingEnd="55dp"
+                android:text="Company Details"
+                android:textAlignment="center"
+                android:textColor="#8f9490"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Company Infomation"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/roboto_regular"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Company name"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+            <EditText
+                android:id="@+id/company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edit_text"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:maxLines="1"
+                android:lines="1"
+                android:singleLine="true"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+            <EditText
+                android:id="@+id/company_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edit_text"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:maxLines="1"
+                android:lines="1"
+                android:singleLine="true"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Staff Size"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+            <EditText
+                android:id="@+id/staff_size_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_edit_text"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:maxLines="1"
+                android:lines="1"
+                android:singleLine="true"
+                />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Company description"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/>
+            <EditText
+                android:id="@+id/company_dcp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/custom_edit_text"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:textAlignment="viewStart"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/ok_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/custom_btn"
+                    android:text="Ok"
+
+                    />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

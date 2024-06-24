@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/red_btn_custom">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/recycle_bin" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/foreground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/custom_white_background_conner"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/company_image"/>
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/avatar"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:fontFamily="@font/roboto_regular"
+            />
+
+        <ImageView
+            android:id="@+id/gender_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/gender_icon"
+            android:layout_toEndOf="@id/avatar"
+            android:layout_below="@id/name_tv"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/gender_tv"
+            android:textSize="18sp"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/gender_icon"
+            android:layout_below="@id/name_tv"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/calendar_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/clock_icon"
+            android:layout_toEndOf="@id/avatar"
+            android:layout_below="@id/gender_tv"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/dob_tv"
+            android:textSize="18sp"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/calendar_icon"
+            android:layout_below="@id/gender_tv"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"/>
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>

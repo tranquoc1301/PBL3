@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_conner"
+    android:layout_margin="10dp"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/pdf_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/pdf_logo"
+        android:scaleType="centerCrop"/>
+
+
+
+    <TextView
+        android:id="@+id/file_name"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/pdf_image"
+        android:textSize="18sp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/custom_edit_text"
+        android:lines="1"/>
+
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/recycle_bin"/>
+
+</RelativeLayout>
