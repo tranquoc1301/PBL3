@@ -1,1 +1,0 @@
-SELECT * FROM pbl3_database.company order by ID DESC;
