@@ -1,7 +1,8 @@
 import mysql.connector
 from venv import logger
 
-DB_Name = 'pbl3_database'
+# DB_Name = 'pbl3_database'
+DB_Name = 'pbl3test'
 DB_Password = 'Hoc12345'
 
 def save_company_into_DB(data):

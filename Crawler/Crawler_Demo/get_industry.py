@@ -28,4 +28,5 @@ def crawl_industry():
             industries.append(industry)
     return industries
             
+            
     

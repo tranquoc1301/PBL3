@@ -1,0 +1,1 @@
+SELECT * FROM 22nh99.danhmuc;
